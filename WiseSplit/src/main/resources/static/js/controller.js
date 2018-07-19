@@ -1,30 +1,24 @@
-var app = angular.module('app' ,['ngRoute']);
-
-app.config(['$routeProvider', function($routeProvider){
+var app = angular.module('app' ,['ngRoute'])
+                 .config(function($routeProvider){
+                	 $routeProvider
+                	 .when("/login",{
+                		 
+                		 templateUrl:"templates/login.html",
+                		 controller:"loginController"
+                	 })
+                	 .when("/dashboard",{
+                		
+                		 templateUrl:"templates/user.html",
+                		 controller:"postcontroller"
+                	 })
+                	 .otherwise({
+                		 templateUrl:"/login"
+                	 })
+                 })  
+				 .controller('postcontroller',function($scope){
 	
-	$routeProvider
-	.when('/login',{
-		templateUrl : 'login.html',
-		controller :'loginController'
-	})
-	
-	.when('/dashboard',{
-		templateUrl : 'user.html',
-			controller : 'postcontroller'
-			 
-	})
-	.otherwise({
-		templateUrl : '/'
-	});
-	
-}]);
-
-
-
-
-app.controller('postcontroller',function($scope,$http,$location){
-	
-	$scope.submitForm = function(){
+					 $scope.message = "useruser";
+	/*$scope.submitForm = function(){
 		
 		var url = $location.absUrl() + "createUser";
 		
@@ -45,14 +39,14 @@ app.controller('postcontroller',function($scope,$http,$location){
         $scope.lastname="";
         $scope.emailid="";
 		
-		}
+		}*/
 		
-	});
-
-
-app.controller('loginController', function($scope){
+	})
+	.controller('loginController', function($scope){
 	
-	$scope.submit =function($scope ,$password){
+		
+		 $scope.message = "loginLogin";
+	/*$scope.submit =function($scope ,$password){
 		var uname = $scope.username;
 		var pass =$scope.password;
 		
@@ -60,9 +54,36 @@ app.controller('loginController', function($scope){
 		$location.path('/dashboard');
 	}
 		
-	};
+	}*/
 	
 });
+
+     
+
+/*app.config(['$routeProvider', function($routeProvider){
+	
+	$routeProvider
+	.when('/login',{
+		templateUrl : 'login.html',
+		controller :'loginController'
+	})
+	
+	.when('/dashboard',{
+		templateUrl : 'user.html',
+			controller : 'postcontroller'
+			 
+	})
+	.otherwise({
+		templateUrl : '/'
+	});
+	
+}]);*/
+
+
+
+
+
+
 
 
 
