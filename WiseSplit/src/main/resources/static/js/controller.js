@@ -4,15 +4,16 @@ var app = angular.module('app' ,['ngRoute'])
                 	 .when("/login",{
                 		 
                 		 templateUrl:"templates/login.html",
-                		 controller:"loginController"
-                	 })
+                		 controller : 'postcontroller'
+                 	 })
                 	 .when("/dashboard",{
                 		
                 		 templateUrl:"templates/user.html",
-                		 controller:"postcontroller"
-                	 })
+                		 controller : 'postcontroller'
+                 	 })
                 	 .otherwise({
-                		 templateUrl:"/login"
+                		 templateUrl:"templates/login.html",
+                		 controller : 'postcontroller'
                 	 })
                  })  
 				 .controller('postcontroller',function($scope){
