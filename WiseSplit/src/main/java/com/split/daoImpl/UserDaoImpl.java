@@ -65,6 +65,32 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
+	@Override
+	@Transactional
+	public user getUser(int userId) {
+		int Id =userId;
+		user userObj = null;
+		
+		userObj= em.find(user.class, Id);
+		if(null != userObj) {
+		return userObj;
+		}
+		return userObj;
+		
+	}
+
+	@Override
+	public List<user> getAllUsers() {
+
+		
+		List<user> userList;
+		Query query =em.createQuery("from user where isActive= 1");
+		
+		userList =query.getResultList();
+		
+		return userList;
+	}
+
 
 
 }

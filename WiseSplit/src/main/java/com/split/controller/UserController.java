@@ -1,6 +1,10 @@
 package com.split.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +29,7 @@ import com.split.util.LoggerExt;
 	UserDao userDao;
 	
 	
-	@RequestMapping(value ="createUser" , method = RequestMethod.POST)
+	@RequestMapping(value ="v1/createUser" , method = RequestMethod.POST)
  	public String saveUser(@RequestBody userBean userbean) {
 		
 		String status =null;
@@ -58,12 +62,21 @@ import com.split.util.LoggerExt;
 		return null;
 	}
  	
- 	@RequestMapping(value="v1/deleteUser" , method =RequestMethod.POST)
- 	public void deleteUser(@RequestBody String emailId) {
+ 	@RequestMapping(value="v1/getAllUsers" , method =RequestMethod.GET)
+ 	public List<userBean> getUser() {
+ 		List<user> userList;
  		
- 		user.deleteUser(emailId);
+ 		userList= userDao.getAllUsers();
+ 		userBean obj = null;
+ 		List<userBean> beanList =new ArrayList<>();
  		
- 		
+ 		for(user list : userList) {
+ 			 obj = new userBean();
+ 			obj.setFirstname(list.getFirstName());
+ 			obj.setLastname(list.getLastName());
+ 			beanList.add(obj);
+ 		}
+		return beanList;
  	}
  	
  	

@@ -1,5 +1,7 @@
 package com.split.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.split.entity.user;
@@ -13,5 +15,8 @@ public interface UserDao {
 	public user getUsers(String email);
 	
 	public String updateUser(user user);
+	public user getUser(int userId);
+	
+	public List<user> getAllUsers();
 	
 }

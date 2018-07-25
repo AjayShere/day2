@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String updateUser(userBean userbean) {
-		// TODO Auto-generated method stub
 		user user = null;
 		if(null != userbean.getEmailId()) {
 		user= userDao.getUsers(userbean.getEmailId());
@@ -80,6 +79,15 @@ public class UserServiceImpl implements UserService {
 			user.setIsActive(BigDecimal.ZERO);
 			userDao.updateUser(user);
 		}
+		return null;
+	}
+
+	@Override
+	public user getUser(int userId) {
+		
+        
+		
+		
 		return null;
 	}
 
