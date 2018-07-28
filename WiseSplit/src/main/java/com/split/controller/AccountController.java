@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.split.bean.AccountBean;
 import com.split.bean.AddRequestBean;
-import com.split.bean.FinalResponseBean;
 import com.split.dao.AccountDao;
 import com.split.entity.Account;
 import com.split.service.AccountService;
@@ -65,20 +64,45 @@ public class AccountController {
 	@RequestMapping(value ="v1/calculation" , method=RequestMethod.GET)
 	public List<AccountBean> monthlyCalculation() {
 		
-		FinalResponseBean obj = new FinalResponseBean();
-		
-		List<Account> newList = accountDao.getResult();
+		List<Account> newList;
+		newList = accountDao.getResult();
 		
 		List<AccountBean> list = new ArrayList<>();
 		AccountBean bean = null;
 		
 		for(Account itr : newList ) {
+			bean = new AccountBean();
 			bean.setAmount(itr.getAmount());
+			bean.setComment(itr.getComment());
 			list.add(bean);	
 		}
 		
+		
 		return  list;
 	}
+	
+	
+	@RequestMapping(value ="v1/calculationAccount" , method=RequestMethod.GET)
+	public List<AccountBean> monthlyCalculationAccount() {
+		
+		List<AccountBean> newList;
+		newList = accountDao.getAccount();
+		
+		List<AccountBean> list = new ArrayList<>();
+		AccountBean bean = null;
+		
+		/*for(Account itr : newList ) {
+			bean = new AccountBean();
+			bean.setAmount(itr.getAmount());
+			bean.setComment(itr.getComment());
+			list.add(bean);	
+		}
+		*/
+		
+		return  newList;
+	}
+	
+	
 }
 	
 	

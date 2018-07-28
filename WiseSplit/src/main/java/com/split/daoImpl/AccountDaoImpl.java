@@ -1,5 +1,6 @@
 package com.split.daoImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.split.bean.AccountBean;
 import com.split.bean.AddRequestBean;
-import com.split.bean.FinalResponseBean;
 import com.split.dao.AccountDao;
 import com.split.entity.Account;
 
@@ -38,32 +39,31 @@ public class AccountDaoImpl implements AccountDao {
 	@Transactional
 	public List<Account> getResult() {
 
-		List<Account> results ;
+		List<Account> results;
 		System.out.println("in dao");
-        //String hqlQuery ="select sum(amount), id from account group by id";
-        
-        Query query =em.createQuery("from Account where isactive = 1");
-        
-        results =query.getResultList();
-        
-        System.out.println("response" +results.get(0));
-        
-        System.out.println("dao out");
-		//List<FinalResponseBean> responseList =em.createQuery("from )
+
+		Query query = em.createQuery("from Account where isactive = 1");
+		results = query.getResultList();
+
+		System.out.println("response" + results.get(0));
+		System.out.println("dao out");
+
 		return results;
 	}
 
 	@Override
 	@Transactional
-	public List<Account> getAccount() {
-		
-		
-		
-		Query query = em.createQuery("from Account where isactive = 1 ");
-		
-		List<Account> accountList =query.getResultList();
-		
-		return accountList;
+	public List<AccountBean> getAccount() {
+
+		List<AccountBean> Accountresults = new ArrayList<>();
+		System.out.println("in dao");
+		String hqlQuery = "select sum(amount), user.Id from Account group by user.Id";
+
+		Accountresults = em.createQuery(hqlQuery).getResultList();
+
+		System.out.println("dao out");
+
+		return Accountresults;
 	}
 
 }

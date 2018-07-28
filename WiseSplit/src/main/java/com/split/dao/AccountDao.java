@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.split.bean.AccountBean;
 import com.split.bean.AddRequestBean;
-import com.split.bean.FinalResponseBean;
 import com.split.entity.Account;
 
 @Component
@@ -17,6 +17,6 @@ public interface AccountDao {
 	
 	public List<Account> getResult();
 	
-	public List<Account> getAccount();
+	public List<AccountBean> getAccount();
 
 }

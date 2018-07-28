@@ -53,6 +53,11 @@ public class AccountServiceImpl implements AccountService{
 	public void getResult() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/*public void getResult() {
+		// TODO Auto-generated method stub
+		
 		List<Account> list =accountDao.getAccount();
 		List<AddRequestBean> AddRequestBeanList =new ArrayList<>();
 		
@@ -63,5 +68,5 @@ public class AccountServiceImpl implements AccountService{
 		}
 		
 	}
-
+*/
 }

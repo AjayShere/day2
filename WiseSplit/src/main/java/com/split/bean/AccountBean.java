@@ -2,7 +2,6 @@ package com.split.bean;
 
 public class AccountBean {
 	
-	
 	long amount;
 	
 	String comment;
