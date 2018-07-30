@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.split.bean.AccountBean;
 import com.split.bean.AddRequestBean;
+import com.split.bean.RequestBean;
 import com.split.dao.AccountDao;
 import com.split.entity.Account;
 
@@ -61,6 +62,26 @@ public class AccountDaoImpl implements AccountDao {
 
 		Accountresults = em.createQuery(hqlQuery).getResultList();
 
+		System.out.println("dao out");
+
+		return Accountresults;
+	}
+
+	@Override
+	@Transactional
+	public List<AccountBean> getAccountByDate(RequestBean requestBean) {
+
+		List<AccountBean> Accountresults = new ArrayList<>();
+
+		System.out.println("in dao");
+		System.out.println("from date   " + requestBean.getFromDate());
+		System.out.println("to date   " + requestBean.getToDate());
+
+		String hqlQuery = "select sum(amount) ,user.Id from Account where last_updated_date  between  :date and sysdate() group by user.Id ";
+
+		Accountresults = em.createQuery(hqlQuery).setParameter("date", requestBean.getFromDate()).getResultList();
+		
+		System.out.println(Accountresults);
 		System.out.println("dao out");
 
 		return Accountresults;

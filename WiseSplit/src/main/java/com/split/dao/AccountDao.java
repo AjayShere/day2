@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.split.bean.AccountBean;
 import com.split.bean.AddRequestBean;
+import com.split.bean.RequestBean;
 import com.split.entity.Account;
 
 @Component
@@ -18,5 +19,7 @@ public interface AccountDao {
 	public List<Account> getResult();
 	
 	public List<AccountBean> getAccount();
+
+	List<AccountBean> getAccountByDate(RequestBean  requestDate);
 
 }

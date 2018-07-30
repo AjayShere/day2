@@ -1,10 +1,14 @@
 package com.split.bean;
 
+import java.util.Date;
+
 public class AccountBean {
 	
 	long amount;
 	
 	String comment;
+	
+	Date lastupdateddate;
 
 	public long getAmount() {
 		return amount;
@@ -21,6 +25,16 @@ public class AccountBean {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	public Date getLastupdateddate() {
+		return lastupdateddate;
+	}
+
+	public void setLastupdateddate(Date lastupdateddate) {
+		this.lastupdateddate = lastupdateddate;
+	}
+	
+	
 	
 	
 	
