@@ -10,19 +10,43 @@ var app = angular.module('app', [ 'ngRoute' ]).config(function($routeProvider) {
 	}).when("/addMoney", {
 
 		templateUrl : "templates/addMoney.html",
-		controller : 'postcontroller'
+		controller : 'addAmountController'
 	})
 	/*
 	 * .otherwise({ templateUrl:"templates/login.html", controller :
 	 * 'loginController' })
 	 */
+}).controller('addAmountController', function($scope, $http, $location) {
+
+	$scope.AddAmount = function(userId) {
+
+		var url = "http://localhost:8080/v1/addMoney";
+
+		var data = {
+			comment : $scope.comment,
+			amount : $scope.amount,
+			userId : userId
+
+		};
+
+		$http.post(url, data).then(function(response) {
+			$scope.postResultMessage = response;
+		}, function error(response) {
+			$scope.postResultMessage = "Error with status: " +response;
+		});
+
+		$scope.comment = "";
+		$scope.amount = "";
+
+	};
+
 }).controller(
 		'postcontroller',
-		function($scope,$http,$location) {
+		function($scope, $http, $location) {
 
 			$scope.submitForm = function() {
 
-				var url = $location.absUrl() + "createUser";
+				var url = "http://localhost:8080/v1/createUser";
 
 				var data = {
 					firstname : $scope.firstname,
@@ -31,13 +55,15 @@ var app = angular.module('app', [ 'ngRoute' ]).config(function($routeProvider) {
 
 				};
 
+				data = angular.toJson(data);
+
 				$http.post(url, data).then(
 						function(response) {
-							$scope.postResultMessage = response.emailId
+							$scope.postResultMessage = response;
 						},
 						function error(response) {
 							$scope.postResultMessage = "Error with status: "
-									+ response.emailId;
+									+response.emailId;
 						});
 
 				$scope.firstname = "";

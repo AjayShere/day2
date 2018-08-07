@@ -25,6 +25,8 @@ public class AccountDaoImpl implements AccountDao {
 	@Override
 	@Transactional
 	public void saveAccount(Account account) {
+		
+		System.out.println("in dao to save Account"  +account.getAmount());
 
 		em.persist(account);
 

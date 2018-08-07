@@ -33,10 +33,14 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void addAmount(AddRequestBean addRequestBean) {
 
+		
+		System.out.println("In service " );
 		Account account = new Account();
 		if (addRequestBean.getAmount() != 0 && addRequestBean.getUserId() != 0) {
 
 			user userObj = userDao.getUser(addRequestBean.getUserId());
+			
+			System.out.println("In service   UserObject"  +userObj.getFirstName());
 			if (null != userObj) {
 				account.setUser(userObj);
 			}

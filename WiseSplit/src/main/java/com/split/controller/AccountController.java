@@ -30,8 +30,15 @@ public class AccountController {
 	AccountDao accountDao;
 
 	@RequestMapping(value = "v1/addMoney", method = RequestMethod.POST)
-	public void addMoney(@RequestBody AddRequestBean addRequestBean) {
+	public String addMoney(@RequestBody AddRequestBean addRequestBean) {
 
+		
+		System.out.println("in controller");
+		
+		System.out.println("Amount : " +addRequestBean.getAmount());
+		System.out.println("Comment : " +addRequestBean.getComment());
+		System.out.println("UserId : " +addRequestBean.getUserId());
+		
 		try {
 
 			if (addRequestBean.getUserId() != 0) {
@@ -40,6 +47,7 @@ public class AccountController {
 		} catch (Exception ex) {
 			logger.debug("AccountController", "Exceptio occured in AccountController Class");
 		}
+		return "MoneyAddedSuccessfully";
 
 		/*
 		 * Account obj = new Account();
