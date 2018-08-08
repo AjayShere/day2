@@ -11,28 +11,51 @@ var app = angular.module('app', [ 'ngRoute' ]).config(function($routeProvider) {
 
 		templateUrl : "templates/addMoney.html",
 		controller : 'addAmountController'
+	}).when("/calculation" , {
+		
+		templateUrl : "templates/calculation.html",
+		controller : 'resultcontroller'
+		
 	})
 	/*
 	 * .otherwise({ templateUrl:"templates/login.html", controller :
 	 * 'loginController' })
 	 */
+}).controller('resultcontroller', function($scope, $http, $location) {
+
+	$scope.getResult = function() {
+
+		var url = "http://localhost:8080/v1/calculationAccount";
+
+		
+		$http.get(url).then(function(response) {
+			$scope.postResultMessage = response.data;
+		}, function error(response) {
+			$scope.postResultMessage = "Error with status: " +response.data;
+		});
+
+		$scope.comment = "";
+		$scope.amount = "";
+
+	};
+
 }).controller('addAmountController', function($scope, $http, $location) {
 
-	$scope.AddAmount = function(userId) {
+	$scope.AddAmount = function(userId,amount,comment) {
 
 		var url = "http://localhost:8080/v1/addMoney";
 
 		var data = {
-			comment : $scope.comment,
-			amount : $scope.amount,
+			comment : comment,
+			amount : amount,
 			userId : userId
 
 		};
 
 		$http.post(url, data).then(function(response) {
-			$scope.postResultMessage = response;
+			$scope.postResultMessage = response.data.status;
 		}, function error(response) {
-			$scope.postResultMessage = "Error with status: " +response;
+			$scope.postResultMessage = "Error with status: " +response.data.status;
 		});
 
 		$scope.comment = "";

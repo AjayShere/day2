@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.split.bean.AccountBean;
 import com.split.bean.AddRequestBean;
 import com.split.bean.RequestBean;
+import com.split.bean.ResponseBean;
 import com.split.dao.AccountDao;
 import com.split.entity.Account;
 import com.split.service.AccountService;
@@ -30,15 +33,15 @@ public class AccountController {
 	AccountDao accountDao;
 
 	@RequestMapping(value = "v1/addMoney", method = RequestMethod.POST)
-	public String addMoney(@RequestBody AddRequestBean addRequestBean) {
+	public ResponseEntity<ResponseBean> addMoney(@RequestBody AddRequestBean addRequestBean) {
 
-		
+		ResponseBean obj = new ResponseBean();
 		System.out.println("in controller");
-		
-		System.out.println("Amount : " +addRequestBean.getAmount());
-		System.out.println("Comment : " +addRequestBean.getComment());
-		System.out.println("UserId : " +addRequestBean.getUserId());
-		
+
+		System.out.println("Amount : " + addRequestBean.getAmount());
+		System.out.println("Comment : " + addRequestBean.getComment());
+		System.out.println("UserId : " + addRequestBean.getUserId());
+
 		try {
 
 			if (addRequestBean.getUserId() != 0) {
@@ -47,7 +50,10 @@ public class AccountController {
 		} catch (Exception ex) {
 			logger.debug("AccountController", "Exceptio occured in AccountController Class");
 		}
-		return "MoneyAddedSuccessfully";
+
+		obj.setStatus("MoneyAddedSuccessfully");
+
+		return new ResponseEntity<ResponseBean>(obj, HttpStatus.OK);
 
 		/*
 		 * Account obj = new Account();
@@ -66,22 +72,25 @@ public class AccountController {
 
 	}
 
-	@RequestMapping(value = "v1/calculation", method = RequestMethod.GET)
-	public List<AccountBean> monthlyCalculation() {
+	@RequestMapping(value = "/v1/calculation", method = RequestMethod.GET)
+	public ResponseEntity<List<AccountBean>> monthlyCalculation() {
 
 		List<Account> newList;
 		newList = accountDao.getResult();
-
-		List<AccountBean> list = new ArrayList<>();
+		
+		List<AccountBean> list = null;
 		AccountBean bean = null;
 
 		for (Account itr : newList) {
 			bean = new AccountBean();
 			bean.setAmount(itr.getAmount());
 			bean.setComment(itr.getComment());
-			list.add(bean);
+			System.out.println("from controller " +bean.getAmount());
+			
 		}
-		return list;
+		list.add(bean);
+		
+		return new ResponseEntity<List<AccountBean>>(list, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "v1/calculationAccount", method = RequestMethod.GET)
@@ -93,14 +102,47 @@ public class AccountController {
 		List<AccountBean> list = new ArrayList<>();
 		AccountBean bean = null;
 
-		/*
-		 * for(Account itr : newList ) { bean = new AccountBean();
-		 * bean.setAmount(itr.getAmount()); bean.setComment(itr.getComment());
-		 * list.add(bean); }
-		 */
+		/*for (AccountBean itr : newList) {
+			bean = new AccountBean();
+			bean.setAmount(itr.getAmount());
+			bean.setComment(itr.getComment());
+			list.add(bean);
+		}*/
 
 		return newList;
 	}
+	
+	
+	//ErrorEndpoint
+	
+	/*// error  =={
+	"timestamp": "2018-08-08T17:26:43.630+0000",
+	"status": 500,
+	"error": "Internal Server Error",
+	"message": "[Ljava.lang.Object; cannot be cast to com.split.bean.AccountBean",
+	"path": "/v1/calculationAccount"
+	}*/
+	
+	/*@RequestMapping(value = "v1/calculationAccount", method = RequestMethod.GET)
+	public ResponseEntity<List<CalculationBean>> monthlyCalculationAccount() {
+
+		List<AccountBean> newList;
+		newList = accountDao.getAccount();
+
+		List<CalculationBean> list = new ArrayList<>();
+		CalculationBean bean = null;
+
+		for (AccountBean itr : newList) {
+			bean = new CalculationBean();
+			bean.setAmount(itr.getAmount());
+			bean.setComment(itr.getComment());
+			System.out.println("from controllleer"  +bean.getAmount());
+			list.add(bean);
+		}
+
+		return new ResponseEntity<List<CalculationBean>>(list, HttpStatus.OK);
+	}*/
+
 
 	@RequestMapping(value = "v1/calculationAccountByDate", method = RequestMethod.POST)
 	public List<AccountBean> monthlyCalculationAccountByDate(@RequestBody RequestBean requestBean) {
