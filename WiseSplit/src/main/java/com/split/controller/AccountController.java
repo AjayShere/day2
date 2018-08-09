@@ -94,7 +94,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "v1/calculationAccount", method = RequestMethod.GET)
-	public List<AccountBean> monthlyCalculationAccount() {
+	public ResponseEntity <List<AccountBean>>  monthlyCalculationAccount() {
 
 		List<AccountBean> newList;
 		newList = accountDao.getAccount();
@@ -109,7 +109,7 @@ public class AccountController {
 			list.add(bean);
 		}*/
 
-		return newList;
+		return new ResponseEntity<> (newList, HttpStatus.OK);
 	}
 	
 	

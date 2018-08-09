@@ -16,11 +16,56 @@ var app = angular.module('app', [ 'ngRoute' ]).config(function($routeProvider) {
 		templateUrl : "templates/calculation.html",
 		controller : 'resultcontroller'
 		
+	}).when("/transaction" , {
+		
+		templateUrl : "templates/transaction.html",
+		controller : 'transactionController'
+		
 	})
 	/*
 	 * .otherwise({ templateUrl:"templates/login.html", controller :
 	 * 'loginController' })
 	 */
+}).controller('transactionController', function($scope, $http, $location) {
+
+	$scope.getUsers = function() {
+
+		var url = "http://localhost:8080/v1/getAllUsers";
+
+		
+		$http.get(url).then(function(response) {
+			$scope.userRecords = response.data;
+		}, function error(response) {
+			$scope.userRecords = "Error with status: " +response.data;
+		});
+
+
+	};
+	
+	$scope.addAccountMoney = function(userId,amount,comment) {
+
+		var url = "http://localhost:8080/v1/addMoney";
+
+		
+		var data = {
+				comment : comment,
+				amount : amount,
+				userId : userId
+
+			};
+
+			$http.post(url, data).then(function(response) {
+				$scope.postResultMessages = response.data.status;
+			}, function error(response) {
+				$scope.postResultMessages = "Error with status: " +response.data.status;
+			});
+
+			$scope.comment = "";
+			$scope.amount = "";
+
+
+	};
+
 }).controller('resultcontroller', function($scope, $http, $location) {
 
 	$scope.getResult = function() {
@@ -29,13 +74,11 @@ var app = angular.module('app', [ 'ngRoute' ]).config(function($routeProvider) {
 
 		
 		$http.get(url).then(function(response) {
-			$scope.postResultMessage = response.data;
+			$scope.records = response.data;
 		}, function error(response) {
-			$scope.postResultMessage = "Error with status: " +response.data;
+			$scope.records = "Error with status: " +response.data;
 		});
 
-		$scope.comment = "";
-		$scope.amount = "";
 
 	};
 

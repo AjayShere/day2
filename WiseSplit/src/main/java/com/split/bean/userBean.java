@@ -12,6 +12,8 @@ public class userBean {
 	@NotNull
 	private String emailId;
 	
+	private int userId;
+	
 	
 	
 	public String getEmailId() {
@@ -32,5 +34,13 @@ public class userBean {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	
 	
 }

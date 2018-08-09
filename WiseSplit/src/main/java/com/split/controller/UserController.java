@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,7 +65,7 @@ import com.split.util.LoggerExt;
 	}
  	
  	@RequestMapping(value="v1/getAllUsers" , method =RequestMethod.GET)
- 	public List<userBean> getUser() {
+ 	public ResponseEntity<List<userBean>> getUser() {
  		List<user> userList;
  		
  		userList= userDao.getAllUsers();
@@ -75,9 +76,11 @@ import com.split.util.LoggerExt;
  			 obj = new userBean();
  			obj.setFirstname(list.getFirstName());
  			obj.setLastname(list.getLastName());
+ 			obj.setUserId(list.getId());
  			beanList.add(obj);
  		}
-		return beanList;
+ 		
+		return new ResponseEntity<>(beanList,HttpStatus.OK);
  	}
  	
  	

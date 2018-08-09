@@ -2,12 +2,35 @@
 
 <p>Calculation</p>
 
-<table  border="1">
-<tr ng-repeat="(x, y) in myObj">
-  <td>{{x}}</td>
-  <td>{{y}}</td>  
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 15px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+
+<table>
+<tr>
+<td>Name</td>
+<td>Age</td>
+</tr>
+<tr ng-repeat="x in records">
+
+  <td>{{x[2]}}</td>
+  <td>{{x[0]}}</td>
+
 </tr>
 </table>
+<br>
+<br>
+<br>
 
 <button ng-click="getResult()">Get Result</button>
 
