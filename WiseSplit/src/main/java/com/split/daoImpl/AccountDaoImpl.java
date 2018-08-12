@@ -60,7 +60,7 @@ public class AccountDaoImpl implements AccountDao {
 
 		List<AccountBean> Accountresults = new ArrayList<>();
 		System.out.println("in dao");
-		String hqlQuery = "select sum(amount), user.Id , user.FirstName from Account group by user.Id";
+		String hqlQuery = "select sum(amount), user.Id , user.FirstName from Account where isactive = 1 group by user.Id ";
 
 		Accountresults = em.createQuery(hqlQuery).getResultList();
 

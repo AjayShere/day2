@@ -17,12 +17,12 @@ table tr:nth-child(even) {
 </style>
 
 <table>
-<tr>
-<td>Name</td>
-<td>Age</td>
-</tr>
-<tr ng-repeat="x in records">
 
+<tr ng-repeat="x in records">
+<tr>
+<th>Name</th>
+<th>Age</th>
+</tr>
   <td>{{x[2]}}</td>
   <td>{{x[0]}}</td>
 
