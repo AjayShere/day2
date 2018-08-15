@@ -18,8 +18,10 @@ public interface AccountDao {
 	
 	public List<Account> getResult();
 	
-	public List<AccountBean> getAccount();
+	public List<Object> getAccount();
 
 	List<AccountBean> getAccountByDate(RequestBean  requestDate);
+
+	List<Account> getAccounts();
 
 }

@@ -1,22 +1,17 @@
 package com.split.bean;
 
-import java.util.Date;
-
 public class AccountBean {
-	
+
 	long amount;
-	
-	String comment;
-	
-	Date lastupdateddate;
 
-	public long getAmount() {
-		return amount;
-	}
+	private int userId;
 
-	public void setAmount(long amount) {
-		this.amount = amount;
-	}
+	private String userName;
+	
+	private String comment;
+	
+	
+	
 
 	public String getComment() {
 		return comment;
@@ -26,18 +21,29 @@ public class AccountBean {
 		this.comment = comment;
 	}
 
-	public Date getLastupdateddate() {
-		return lastupdateddate;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setLastupdateddate(Date lastupdateddate) {
-		this.lastupdateddate = lastupdateddate;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
-	
-	
-	
-	
-	
-	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+
 
 }

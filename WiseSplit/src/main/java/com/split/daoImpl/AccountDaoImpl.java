@@ -56,9 +56,24 @@ public class AccountDaoImpl implements AccountDao {
 
 	@Override
 	@Transactional
-	public List<AccountBean> getAccount() {
+	public List<Object> getAccount() {
 
-		List<AccountBean> Accountresults = new ArrayList<>();
+		List<Object> Accountresults = new ArrayList<>();
+		System.out.println("in dao");
+		String hqlQuery = "select sum(amount), user.Id , user.FirstName from Account where isactive = 1 group by user.Id ";
+
+		Accountresults = em.createQuery(hqlQuery).getResultList();
+
+		System.out.println("dao out");
+
+		return Accountresults;
+	}
+	
+	@Override
+	@Transactional
+	public List<Account> getAccounts() {
+
+		List<Account> Accountresults = new ArrayList<>();
 		System.out.println("in dao");
 		String hqlQuery = "select sum(amount), user.Id , user.FirstName from Account where isactive = 1 group by user.Id ";
 

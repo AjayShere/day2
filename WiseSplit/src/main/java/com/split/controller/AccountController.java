@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.split.bean.AccountBean;
 import com.split.bean.AddRequestBean;
+import com.split.bean.ExpenditureBean;
 import com.split.bean.RequestBean;
 import com.split.bean.ResponseBean;
 import com.split.dao.AccountDao;
@@ -77,7 +78,7 @@ public class AccountController {
 
 		List<Account> newList;
 		newList = accountDao.getResult();
-		
+
 		List<AccountBean> list = null;
 		AccountBean bean = null;
 
@@ -85,64 +86,48 @@ public class AccountController {
 			bean = new AccountBean();
 			bean.setAmount(itr.getAmount());
 			bean.setComment(itr.getComment());
-			System.out.println("from controller " +bean.getAmount());
-			
+			System.out.println("from controller " + bean.getAmount());
+
 		}
 		list.add(bean);
-		
+
 		return new ResponseEntity<List<AccountBean>>(list, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "v1/calculationAccount", method = RequestMethod.GET)
-	public ResponseEntity <List<AccountBean>>  monthlyCalculationAccount() {
+	public ResponseEntity<List<Object>> monthlyCalculationAccount() {
 
-		List<AccountBean> newList;
+		ExpenditureBean expenditureBean = null;
+		List<Object> newList;
+
 		newList = accountDao.getAccount();
 
-		List<AccountBean> list = new ArrayList<>();
-		AccountBean bean = null;
-
-		/*for (AccountBean itr : newList) {
-			bean = new AccountBean();
-			bean.setAmount(itr.getAmount());
-			bean.setComment(itr.getComment());
-			list.add(bean);
-		}*/
-
-		return new ResponseEntity<> (newList, HttpStatus.OK);
+		return new ResponseEntity<>(newList, HttpStatus.OK);
 	}
-	
-	
-	//ErrorEndpoint
-	
-	/*// error  =={
-	"timestamp": "2018-08-08T17:26:43.630+0000",
-	"status": 500,
-	"error": "Internal Server Error",
-	"message": "[Ljava.lang.Object; cannot be cast to com.split.bean.AccountBean",
-	"path": "/v1/calculationAccount"
-	}*/
-	
-	/*@RequestMapping(value = "v1/calculationAccount", method = RequestMethod.GET)
-	public ResponseEntity<List<CalculationBean>> monthlyCalculationAccount() {
 
-		List<AccountBean> newList;
-		newList = accountDao.getAccount();
+	// ErrorEndpoint
 
-		List<CalculationBean> list = new ArrayList<>();
-		CalculationBean bean = null;
+	/*
+	 * // error =={ "timestamp": "2018-08-08T17:26:43.630+0000", "status": 500,
+	 * "error": "Internal Server Error", "message":
+	 * "[Ljava.lang.Object; cannot be cast to com.split.bean.AccountBean", "path":
+	 * "/v1/calculationAccount" }
+	 */
 
-		for (AccountBean itr : newList) {
-			bean = new CalculationBean();
-			bean.setAmount(itr.getAmount());
-			bean.setComment(itr.getComment());
-			System.out.println("from controllleer"  +bean.getAmount());
-			list.add(bean);
-		}
-
-		return new ResponseEntity<List<CalculationBean>>(list, HttpStatus.OK);
-	}*/
-
+	/*
+	 * @RequestMapping(value = "v1/calculationAccount", method = RequestMethod.GET)
+	 * public ResponseEntity<List<CalculationBean>> monthlyCalculationAccount() {
+	 * 
+	 * List<AccountBean> newList; newList = accountDao.getAccount();
+	 * 
+	 * List<CalculationBean> list = new ArrayList<>(); CalculationBean bean = null;
+	 * 
+	 * for (AccountBean itr : newList) { bean = new CalculationBean();
+	 * bean.setAmount(itr.getAmount()); bean.setComment(itr.getComment());
+	 * System.out.println("from controllleer" +bean.getAmount()); list.add(bean); }
+	 * 
+	 * return new ResponseEntity<List<CalculationBean>>(list, HttpStatus.OK); }
+	 */
 
 	@RequestMapping(value = "v1/calculationAccountByDate", method = RequestMethod.POST)
 	public List<AccountBean> monthlyCalculationAccountByDate(@RequestBody RequestBean requestBean) {
@@ -153,13 +138,42 @@ public class AccountController {
 		List<AccountBean> list = new ArrayList<>();
 		AccountBean bean = null;
 
-		/*
-		 * for(Account itr : newList ) { bean = new AccountBean();
-		 * bean.setAmount(itr.getAmount()); bean.setComment(itr.getComment());
-		 * list.add(bean); }
-		 */
+		for (AccountBean itr : newList) {
+			bean = new AccountBean();
+			bean.setAmount(itr.getAmount());
+			bean.setComment(itr.getComment());
+			list.add(bean);
+		}
 
 		return newList;
 	}
 
+	
+	@RequestMapping(value = "v1/expenditureCalculations", method = RequestMethod.GET)
+	public ResponseEntity<List<AccountBean>> monthlyExpenditureCalculation() {
+
+		ExpenditureBean expenditureBean = null;
+		List<Object> newList;
+		long avgSum;
+		String totalSum = null;
+		int count;
+
+		
+		newList = accountDao.getAccount();
+		
+		
+		System.out.println(newList.get(0).getClass());
+		
+		for(Object itr : newList) {
+			AccountBean bean = new AccountBean();
+			bean =  (AccountBean) itr;
+			System.out.println(bean.getAmount());
+			System.out.println(totalSum  + "  " );
+			System.out.println("total");
+			
+		}
+		
+
+		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
 }
